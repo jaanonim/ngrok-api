@@ -8,7 +8,7 @@
 		"jaanonim"
 	],
 	"contact": {
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/jaanonim/ngrok-api"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/ngrok-api/icon.png",
