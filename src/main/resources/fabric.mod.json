@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "ngrok-api",
+	"version": "${version}",
+	"name": "Ngrok Api",
+	"description": "Minecraft mod written with fabric to get server address that is hosted using ngrok for ngrok api.",
+	"authors": [
+		"jaanonim"
+	],
+	"contact": {
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/ngrok-api/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.jaanonim.ngrokapi.NgrokApiMod"
+		]
+	},
+	"mixins": [
+		"ngrok-api.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.19",
+		"minecraft": "~1.19.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
