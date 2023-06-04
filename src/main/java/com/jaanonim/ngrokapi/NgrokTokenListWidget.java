@@ -59,7 +59,7 @@ public class NgrokTokenListWidget extends AlwaysSelectedEntryListWidget<NgrokTok
 
         @Override
         public Text getNarration() {
-            throw new UnsupportedOperationException("Unimplemented method 'getNarration'");
+            return Text.of(entry.name);
         }
 
         @Override
