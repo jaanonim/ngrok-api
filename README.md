@@ -13,3 +13,8 @@ Once the API key is added, the mod seamlessly integrates with ngrok's API, autom
 _Note: This mod does not host minecraft server or provide the API key. It is solely intended to simplify the process of retrieving minecraft server addresses hosted with ngrok by automating the task._
 
 Enjoy effortless access to minecraft server addresses with the Ngrok Api Mod and say goodbye to the inconvenience of manual address updates!
+
+## Links:
+-  cursefroge: https://www.curseforge.com/minecraft/mc-mods/ngrok-api
+-  modrinth: https://modrinth.com/mod/ngrok-api
+-  github: https://github.com/jaanonim/ngrok-api
