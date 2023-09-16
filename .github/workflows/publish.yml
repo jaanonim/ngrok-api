@@ -55,7 +55,7 @@ jobs:
               uses: actions/download-artifact@master
               with:
                   name: Artifacts
-                  path: build-Artifacts/
+                  path: build-artifacts/
             - name: Publish (CurseForge/Modrinth/GitHub)
               uses: Kir-Antipov/mc-publish@v3.2
               with:
@@ -71,7 +71,6 @@ jobs:
                   name: "${{env.VERSION}}"
                   version: "${{env.VERSION}}"
                   version-type: release
-                  changelog-file: CHANGELOG.md
 
                   loaders: |
                       fabric
@@ -79,4 +78,5 @@ jobs:
                   game-versions: "${{env.MINECRAFT_VERSION}}"
                   java: "${{env.JAVA_VERSION}}"
                   files: |
-                      build-Artifacts/!(*-@(dev|sources|javadoc)).jar
+                      build-artifacts/!(*-@(dev|sources|javadoc)).jar
+                      build-artifacts/*-@(dev|sources|javadoc).jar
