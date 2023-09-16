@@ -55,9 +55,9 @@ jobs:
               uses: actions/download-artifact@master
               with:
                   name: Artifacts
-                  path: artifacts/!(*-@(dev|sources|javadoc)).jar
+                  path: artifacts
             - name: Check build files
-              run: ls artifacts
+              run: ls artifacts/!(*-@(dev|sources|javadoc)).jar
             - name: Publish (CurseForge/Modrinth/GitHub)
               uses: Kir-Antipov/mc-publish@v3.2
               with:
