@@ -56,7 +56,7 @@ jobs:
               with:
                   name: Artifacts
                   path: build-artifacts/
-            - name: Test
+            - name: Check build files
               run: ls build-artifacts
             - name: Publish (CurseForge/Modrinth/GitHub)
               uses: Kir-Antipov/mc-publish@v3.2
