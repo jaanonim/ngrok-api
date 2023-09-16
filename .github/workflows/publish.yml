@@ -42,6 +42,7 @@ jobs:
               working-directory: ${{ matrix.dir }}
               run: ./gradlew clean build
     publish:
+        needs: build
         runs-on: ubuntu-latest
         steps:
             - name: Publish (CurseForge/Modrinth/GitHub)
