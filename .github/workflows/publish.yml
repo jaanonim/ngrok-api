@@ -57,7 +57,9 @@ jobs:
                   name: Artifacts
                   path: artifacts
             - name: Check build files
-              run: ls artifacts/!(*-@(dev|sources|javadoc)).jar
+              run: |
+                  rm -r artifacts/*-sources.jar
+                  ls artifacts/*.jar
             - name: Publish (CurseForge/Modrinth/GitHub)
               uses: Kir-Antipov/mc-publish@v3.2
               with:
@@ -79,4 +81,4 @@ jobs:
                       forge
                   game-versions: "${{env.MINECRAFT_VERSION}}"
                   java: "${{env.JAVA_VERSION}}"
-                  files: artifacts/!(*-@(dev|sources|javadoc)).jar
+                  files: artifacts/*.jar
