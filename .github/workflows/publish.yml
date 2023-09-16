@@ -55,7 +55,7 @@ jobs:
               uses: actions/download-artifact@master
               with:
                   name: Artifacts
-                  path: build-artifacts/
+                  path: build-artifacts/!(*-@(dev|sources|javadoc)).jar
             - name: Check build files
               run: ls build-artifacts
             - name: Publish (CurseForge/Modrinth/GitHub)
@@ -79,4 +79,4 @@ jobs:
                       forge
                   game-versions: "${{env.MINECRAFT_VERSION}}"
                   java: "${{env.JAVA_VERSION}}"
-                  files: build-artifacts/*.jar
+                  files: build-artifacts/!(*-@(dev|sources|javadoc)).jar
