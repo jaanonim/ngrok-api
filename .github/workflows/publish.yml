@@ -15,7 +15,10 @@ permissions:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                dir: ["Fabric", "Forge"]
+        runs-on: "ubuntu-22.04"
         steps:
             - name: Check Environment Variables
               run: env
@@ -32,12 +35,15 @@ jobs:
                   java-version: 17
 
             - name: Make Gradle Wrapper Executable
-              if: ${{ runner.os != 'Windows' }}
+              working-directory: ${{ matrix.dir }}
               run: chmod +x ./gradlew
 
             - name: Build
+              working-directory: ${{ matrix.dir }}
               run: ./gradlew clean build
-
+    publish:
+        runs-on: ubuntu-latest
+        steps:
             - name: Publish (CurseForge/Modrinth/GitHub)
               uses: Kir-Antipov/mc-publish@v3.2
               with:
@@ -55,6 +61,13 @@ jobs:
                   version-type: release
                   changelog-file: CHANGELOG.md
 
-                  loaders: fabric
+                  loaders: |
+                      fabric
+                      forge
                   game-versions: "${{env.MINECRAFT_VERSION}}"
                   java: "${{env.JAVA_VERSION}}"
+                  files: |
+                      Forge/build/libs/!(*-@(dev|sources|javadoc)).jar
+                      Forge/build/libs/*-@(dev|sources|javadoc).jar
+                      Fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+                      Fabric/build/libs/*-@(dev|sources|javadoc).jar

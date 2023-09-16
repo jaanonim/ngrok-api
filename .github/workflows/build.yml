@@ -10,33 +10,30 @@ jobs:
     build:
         strategy:
             matrix:
-                # Use these Java versions
-                java: [
-                        17, # Current Java LTS & minimum supported by Minecraft
-                    ]
-                # and run on both Linux and Windows
-                os: [ubuntu-22.04]
                 dir: ["Fabric", "Forge"]
-        runs-on: ${{ matrix.os }}
+        runs-on: "ubuntu-22.04"
         steps:
-            - name: checkout repository
+            - name: Checkout Repository
               uses: actions/checkout@v3
-            - name: validate gradle wrapper
+
+            - name: Validate gradle wrapper
               uses: gradle/wrapper-validation-action@v1
-            - name: setup jdk ${{ matrix.java }}
+
+            - name: Setup Java
               uses: actions/setup-java@v3
               with:
-                  java-version: ${{ matrix.java }}
-                  distribution: "microsoft"
-            - name: make gradle wrapper executable
+                  distribution: "temurin"
+                  java-version: 17
+
+            - name: Make Gradle Wrapper Executable
               working-directory: ${{ matrix.dir }}
-              if: ${{ runner.os != 'Windows' }}
               run: chmod +x ./gradlew
-            - name: build
+
+            - name: Build
               working-directory: ${{ matrix.dir }}
               run: ./gradlew build
+
             - name: capture build artifacts
-              if: ${{ runner.os == 'Linux' && matrix.java == '17' }} # Only upload artifacts built from latest java on one OS
               uses: actions/upload-artifact@v3
               with:
                   name: Artifacts
