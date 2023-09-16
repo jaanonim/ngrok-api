@@ -1,10 +1,8 @@
 package com.jaanonim.ngrokapi;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 
 import net.minecraft.text.Text;
 
@@ -44,15 +42,14 @@ public class NgrokTokenListWidget extends AlwaysSelectedEntryListWidget<NgrokTok
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX,
+        public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX,
                 int mouseY, boolean hovered, float tickDelta) {
-            context.drawText(this.client.textRenderer, Text.of(this.entry.getName()), (x + 32 + 3),
-                    (y + 2), 0xFFFFFF, false);
-
+            this.client.textRenderer.draw(matrices, Text.of(this.entry.getName()), (float) (x + 32 + 3),
+                    (float) (y + 2), 0xFFFFFF);
             String s = this.address.getFull();
             Text t = !s.isEmpty() ? Text.of(s) : Text.of("None");
-            context.drawText(this.client.textRenderer, t, (x + 32 + 3),
-                    (y + 12), 0xAAAAAA, false);
+            this.client.textRenderer.draw(matrices, t, (float) (x + 32 + 3),
+                    (float) (y + 12), 0xAAAAAA);
 
         }
 
