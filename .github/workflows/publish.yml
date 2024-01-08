@@ -57,7 +57,7 @@ jobs:
                   modrinth-id: oTmCQ7Y1
                   modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
-                  github-tag: "v${{env.VERSION}}"
+                  github-tag: "v${{env.VERSION}}_${{ matrix.dir }}"
                   github-token: "${{env.GITHUB_TOKEN}}"
 
                   name: "${{env.VERSION}}_${{ matrix.dir }}"
