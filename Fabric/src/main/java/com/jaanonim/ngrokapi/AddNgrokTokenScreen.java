@@ -4,12 +4,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.screen.ScreenTexts;
 
 @Environment(value = EnvType.CLIENT)
 public class AddNgrokTokenScreen extends Screen {
@@ -31,17 +31,16 @@ public class AddNgrokTokenScreen extends Screen {
 
     @Override
     protected void init() {
-
         this.nameField = new TextFieldWidget(this.textRenderer, this.width / 2 -
                 100, 70, 200, 20,
-                new TranslatableText("addServer.enterName"));
+                Text.translatable("addServer.enterName"));
         this.nameField.setMaxLength(100);
         this.nameField.setChangedListener(serverName -> this.updateSaveButton());
         this.addSelectableChild(this.nameField);
 
         this.tokenField = new TextFieldWidget(this.textRenderer, this.width / 2 -
                 100, 120, 200, 20,
-                new TranslatableText("addServer.enterName"));
+                Text.translatable("addServer.enterName"));
         this.tokenField.setMaxLength(100);
         this.tokenField.setChangedListener(serverName -> this.updateSaveButton());
         this.addSelectableChild(this.tokenField);
