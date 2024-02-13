@@ -23,3 +23,11 @@ Enjoy effortless access to minecraft server addresses with the Ngrok Api Mod and
 -   cursefroge: https://www.curseforge.com/minecraft/mc-mods/ngrok-api
 -   modrinth: https://modrinth.com/mod/ngrok-api
 -   github: https://github.com/jaanonim/ngrok-api
+
+## Versions:
+
+For diffrent minecraft versions use the following branches:
+
+-   [1.20.1](https://github.com/jaanonim/ngrok-api/tree/main)
+-   [1.19.4](https://github.com/jaanonim/ngrok-api/tree/1.19.4)
+-   [1.18.2](https://github.com/jaanonim/ngrok-api/tree/1.18.2)
