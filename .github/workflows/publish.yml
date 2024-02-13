@@ -17,7 +17,11 @@ jobs:
     build:
         strategy:
             matrix:
-                dir: ["Fabric", "Forge"]
+                version:
+                    [
+                        { dir: "Fabric", loader: "fabric" },
+                        { dir: "Forge", loader: "forge" },
+                    ]
         runs-on: "ubuntu-22.04"
         steps:
             - name: Check Environment Variables
@@ -35,19 +39,21 @@ jobs:
                   java-version: 17
 
             - name: Make Gradle Wrapper Executable
-              working-directory: ${{ matrix.dir }}
+              working-directory: ${{ matrix.version.dir }}
               run: chmod +x ./gradlew
 
             - name: Build
-              working-directory: ${{ matrix.dir }}
+              working-directory: ${{ matrix.version.dir }}
               run: ./gradlew clean build
+
+            - name: Remove sources jar
+              run: rm -f ${{ matrix.version.dir }}/build/libs/*-sources.jar
 
             - name: Capture Build Artifacts
               uses: actions/upload-artifact@v3
               with:
                   name: Artifacts
-                  path: ${{ matrix.dir }}/build/libs/
-
+                  path: ${{ matrix.version.dir }}/build/libs/
             - name: Publish (CurseForge/Modrinth/GitHub)
               uses: Kir-Antipov/mc-publish@v3.3
               with:
@@ -57,13 +63,14 @@ jobs:
                   modrinth-id: oTmCQ7Y1
                   modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
-                  github-tag: "v${{env.VERSION}}_${{ matrix.dir }}"
+                  github-tag: "v${{env.VERSION}}_${{ matrix.version.dir }}"
                   github-token: "${{env.GITHUB_TOKEN}}"
 
-                  name: "${{env.VERSION}}_${{ matrix.dir }}"
+                  name: "${{env.VERSION}}_${{ matrix.version.dir }}"
                   version: "${{env.VERSION}}"
                   version-type: release
 
                   game-versions: "${{env.MINECRAFT_VERSION}}"
                   java: "${{env.JAVA_VERSION}}"
-                  files: ${{ matrix.dir }}/build/libs/*.jar
+                  files: ${{ matrix.version.dir }}/build/libs/*.jar
+                  loaders: ${{ matrix.version.loader }}
