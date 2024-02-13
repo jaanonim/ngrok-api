@@ -1,13 +1,12 @@
 package com.jaanonim.ngrokapi;
 
 import com.jaanonim.ngrokapi.NgrokTokenListWidget.NgrokTokenEntry;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -130,16 +129,15 @@ public class NgrokApiScreen extends Screen {
         NgrokAddress adr = this.selectedEntry.getAddress();
         if (adr.canConnect()) {
             ServerAddress sa = new ServerAddress(adr.getHost(), adr.getPort());
-            ConnectScreen.startConnecting(this, this.minecraft, sa,
-                    new ServerData(this.selectedEntry.getEntry().getName(), adr.getFull(), false), false);
+            ConnectScreen.startConnecting(this, this.minecraft, sa, null);
         }
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
+        this.renderBackground(matrices);
 
-        this.listWidget.render(context, mouseX, mouseY, delta);
-        super.render(context, mouseX, mouseY, delta);
+        this.listWidget.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

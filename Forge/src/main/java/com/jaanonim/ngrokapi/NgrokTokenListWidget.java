@@ -1,7 +1,8 @@
 package com.jaanonim.ngrokapi;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.network.chat.Component;
 
@@ -41,15 +42,14 @@ public class NgrokTokenListWidget extends ObjectSelectionList<NgrokTokenListWidg
         }
 
         @Override
-        public void render(GuiGraphics context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX,
+        public void render(PoseStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX,
                 int mouseY, boolean hovered, float tickDelta) {
-
-            context.drawString(this.client.font, Component.nullToEmpty(this.entry.getName()), x + 32 + 3,
-                    y + 2, 0xFFFFFF, false);
+            this.client.font.draw(matrices, Component.nullToEmpty(this.entry.getName()), (float) (x + 32 + 3),
+                    (float) (y + 2), 0xFFFFFF);
             String s = this.address.getFull();
             Component t = !s.isEmpty() ? Component.nullToEmpty(s) : Component.nullToEmpty("None");
-            context.drawString(this.client.font, t, x + 32 + 3,
-                    y + 12, 0xAAAAAA, false);
+            this.client.font.draw(matrices, t, (float) (x + 32 + 3),
+                    (float) (y + 12), 0xAAAAAA);
 
         }
 

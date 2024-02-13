@@ -1,7 +1,9 @@
 package com.jaanonim.ngrokapi;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
@@ -84,22 +86,22 @@ public class AddNgrokTokenScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
-        context.drawCenteredString(this.font, this.title.getVisualOrderText(),
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
+        this.renderBackground(matrices);
+        GuiComponent.drawCenteredString(matrices, this.font, this.title.getVisualOrderText(),
                 this.width / 2, 17,
                 0xFFFFFF);
 
-        context.drawCenteredString(this.font, Component.nullToEmpty("Name"), this.width / 2 - 100,
+        GuiComponent.drawCenteredString(matrices, this.font, Component.nullToEmpty("Name"), this.width / 2 - 100,
                 54,
                 0xA0A0A0);
-        context.drawCenteredString(this.font, Component.nullToEmpty("Ngrok API token"),
+        GuiComponent.drawCenteredString(matrices, this.font, Component.nullToEmpty("Ngrok API token"),
                 this.width / 2 - 100,
                 104,
                 0xA0A0A0);
 
-        this.nameField.render(context, mouseX, mouseY, delta);
-        this.tokenField.render(context, mouseX, mouseY, delta);
-        super.render(context, mouseX, mouseY, delta);
+        this.nameField.render(matrices, mouseX, mouseY, delta);
+        this.tokenField.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }

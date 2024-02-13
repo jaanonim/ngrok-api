@@ -5,12 +5,11 @@ import com.jaanonim.ngrokapi.NgrokTokenListWidget.NgrokTokenEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ServerAddress;
-import net.minecraft.client.network.ServerInfo;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
@@ -130,16 +129,15 @@ public class NgrokApiScreen extends Screen {
         NgrokAddress adr = this.selectedEntry.getAddress();
         if (adr.canConnect()) {
             ServerAddress sa = new ServerAddress(adr.getHost(), adr.getPort());
-            ConnectScreen.connect(this, this.client, sa,
-                    new ServerInfo(this.selectedEntry.getEntry().getName(), adr.getFull(), false), false);
+            ConnectScreen.connect(this, this.client, sa, null);
         }
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        this.renderBackground(matrices);
 
-        this.listWidget.render(context, mouseX, mouseY, delta);
-        super.render(context, mouseX, mouseY, delta);
+        this.listWidget.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 }
