@@ -47,7 +47,6 @@ jobs:
               with:
                   name: Artifacts
                   path: ${{ matrix.dir }}/build/libs/
-
             - name: Publish (CurseForge/Modrinth/GitHub)
               uses: Kir-Antipov/mc-publish@v3.3
               with:
@@ -67,3 +66,4 @@ jobs:
                   game-versions: "${{env.MINECRAFT_VERSION}}"
                   java: "${{env.JAVA_VERSION}}"
                   files: ${{ matrix.dir }}/build/libs/*.jar
+
