@@ -20,8 +20,10 @@ public class TitleScreenMixin extends Screen {
     @Inject(at = @At("RETURN"), method = "initWidgetsNormal")
     private void addCustomButton(int y, int spacingY, CallbackInfo ci) {
 
-        ButtonWidget btn = new ButtonWidget(this.width / 2 - 100 + 205, y, 50, 20, Text.of("Ngrok"),
-                button -> this.client.setScreen(new NgrokApiScreen(this)));
+        ButtonWidget btn = ButtonWidget
+                .builder(Text.of("Ngrok"),
+                        button -> this.client.setScreen(new NgrokApiScreen(this)))
+                .dimensions(this.width / 2 - 100 + 205, y, 50, 20).build();
 
         this.addDrawableChild(btn);
     }

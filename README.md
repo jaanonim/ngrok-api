@@ -1,3 +1,7 @@
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jaanonim/ngrok-api?style=for-the-badge&sort=semver)
+![Modrinth Downloads](https://img.shields.io/modrinth/dt/oTmCQ7Y1?logo=modrinth&style=for-the-badge)
+![CurseForge Downloads](https://img.shields.io/curseforge/dt/882715?logo=curseforge&style=for-the-badge)
+
 # Ngrok Api
 
 The Ngrok Api Mod is a convenient tool designed to simplify the process of accessing servers hosted using ngrok. With this mod, there's no need to manually copy and update the server address every time it changes. Simply obtain an ngrok API key from the person hosting the servers and add it to the mod's API key list.
@@ -15,6 +19,7 @@ _Note: This mod does not host minecraft server or provide the API key. It is sol
 Enjoy effortless access to minecraft server addresses with the Ngrok Api Mod and say goodbye to the inconvenience of manual address updates!
 
 ## Links:
--  cursefroge: https://www.curseforge.com/minecraft/mc-mods/ngrok-api
--  modrinth: https://modrinth.com/mod/ngrok-api
--  github: https://github.com/jaanonim/ngrok-api
+
+-   cursefroge: https://www.curseforge.com/minecraft/mc-mods/ngrok-api
+-   modrinth: https://modrinth.com/mod/ngrok-api
+-   github: https://github.com/jaanonim/ngrok-api

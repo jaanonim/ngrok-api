@@ -5,11 +5,13 @@ import com.jaanonim.ngrokapi.NgrokTokenListWidget.NgrokTokenEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ServerAddress;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.network.ServerInfo;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
 @Environment(value = EnvType.CLIENT)
@@ -30,27 +32,36 @@ public class NgrokApiScreen extends Screen {
     protected void init() {
         this.list = new NgrokTokenList();
 
-        this.joinButton = this.addDrawableChild(new ButtonWidget(this.width / 2 - 110,
-                this.height - 55,
-                100, 20,
-                Text.of("Join"), button -> this.join()));
+        this.joinButton = this.addDrawableChild(ButtonWidget.builder(
+                Text.of("Join"), button -> this.join()).dimensions(this.width / 2 - 110,
+                        this.height - 55,
+                        100, 20)
+                .build());
 
-        this.delButton = this.addDrawableChild(new ButtonWidget(this.width / 2 + 10, this.height - 55,
-                100, 20,
-                Text.of("Delete"), button -> this.delete()));
+        this.delButton = this.addDrawableChild(ButtonWidget.builder(
+                Text.of("Delete"), button -> this.delete())
+                .dimensions(this.width / 2 + 10, this.height - 55,
+                        100, 20)
+                .build());
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 140, this.height - 30,
-                80, 20,
-                Text.of("Add"), button -> this.add()));
+        this.addDrawableChild(ButtonWidget.builder(
+                Text.of("Add"), button -> this.add())
+                .dimensions(this.width / 2 - 140, this.height - 30,
+                        80, 20)
+                .build());
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 40, this.height - 30,
-                80, 20,
-                Text.of("Refresh"), button -> this.refresh()));
+        this.addDrawableChild(ButtonWidget.builder(
+                Text.of("Refresh"), button -> this.refresh())
+                .dimensions(this.width / 2 - 40, this.height - 30,
+                        80, 20)
+                .build());
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 + 60,
-                this.height - 30,
-                80, 20,
-                Text.of("Cancel"), button -> this.close()));
+        this.addDrawableChild(ButtonWidget.builder(
+                ScreenTexts.CANCEL, button -> this.close())
+                .dimensions(this.width / 2 + 60,
+                        this.height - 30,
+                        80, 20)
+                .build());
 
         this.listWidget = new NgrokTokenListWidget(client, width, height - 120, 40, height
                 - 60, 30);
@@ -102,7 +113,6 @@ public class NgrokApiScreen extends Screen {
 
     public void selected(NgrokTokenListWidget.NgrokTokenEntry entry) {
         this.selectedEntry = entry;
-        this.listWidget.setSelected(entry);
         updateButtons();
     }
 
@@ -120,15 +130,16 @@ public class NgrokApiScreen extends Screen {
         NgrokAddress adr = this.selectedEntry.getAddress();
         if (adr.canConnect()) {
             ServerAddress sa = new ServerAddress(adr.getHost(), adr.getPort());
-            ConnectScreen.connect(this, this.client, sa, null);
+            ConnectScreen.connect(this, this.client, sa,
+                    new ServerInfo(this.selectedEntry.getEntry().getName(), adr.getFull(), false), false);
         }
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
 
-        this.listWidget.render(matrices, mouseX, mouseY, delta);
-        super.render(matrices, mouseX, mouseY, delta);
+        this.listWidget.render(context, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
     }
 }

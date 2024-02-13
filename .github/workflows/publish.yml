@@ -1,11 +1,11 @@
 name: Publish on GitHub, CurseForge & Modrinth
 
-on: [pull_request, workflow_dispatch]
+on: [workflow_dispatch]
 
 env:
-    MINECRAFT_VERSION: 1.18.2
+    MINECRAFT_VERSION: 1.20.1
     JAVA_VERSION: 17
-    VERSION: 1.0.2+1.18.2
+    VERSION: 1.0.3+1.20.1
     MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
     CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
     GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
@@ -47,21 +47,8 @@ jobs:
               with:
                   name: Artifacts
                   path: ${{ matrix.dir }}/build/libs/
-    publish:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Build Artifacts
-              uses: actions/download-artifact@master
-              with:
-                  name: Artifacts
-                  path: artifacts
-            - name: Check build files
-              run: |
-                  rm -r artifacts/*-sources.jar
-                  ls artifacts/*.jar
             - name: Publish (CurseForge/Modrinth/GitHub)
-              uses: Kir-Antipov/mc-publish@v3.2
+              uses: Kir-Antipov/mc-publish@v3.3
               with:
                   curseforge-id: 882715
                   curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
@@ -69,16 +56,14 @@ jobs:
                   modrinth-id: oTmCQ7Y1
                   modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
-                  github-tag: "v${{env.VERSION}}"
+                  github-tag: "v${{env.VERSION}}_${{ matrix.dir }}"
                   github-token: "${{env.GITHUB_TOKEN}}"
 
-                  name: "${{env.VERSION}}"
+                  name: "${{env.VERSION}}_${{ matrix.dir }}"
                   version: "${{env.VERSION}}"
                   version-type: release
 
-                  loaders: |
-                      fabric
-                      forge
                   game-versions: "${{env.MINECRAFT_VERSION}}"
                   java: "${{env.JAVA_VERSION}}"
-                  files: artifacts/*.jar
+                  files: ${{ matrix.dir }}/build/libs/*.jar
+
