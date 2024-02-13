@@ -46,6 +46,9 @@ jobs:
               working-directory: ${{ matrix.version.dir }}
               run: ./gradlew clean build
 
+            - name: Remove sources jar
+              run: rm -f ${{ matrix.version.dir }}/build/libs/*-sources.jar
+
             - name: Capture Build Artifacts
               uses: actions/upload-artifact@v3
               with:
