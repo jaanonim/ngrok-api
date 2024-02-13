@@ -4,11 +4,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 @Environment(value = EnvType.CLIENT)
 public class AddNgrokTokenScreen extends Screen {
@@ -30,32 +31,29 @@ public class AddNgrokTokenScreen extends Screen {
 
     @Override
     protected void init() {
+
         this.nameField = new TextFieldWidget(this.textRenderer, this.width / 2 -
                 100, 70, 200, 20,
-                Text.translatable("addServer.enterName"));
-        this.nameField.setFocused(true);
+                new TranslatableText("addServer.enterName"));
         this.nameField.setMaxLength(100);
         this.nameField.setChangedListener(serverName -> this.updateSaveButton());
         this.addSelectableChild(this.nameField);
 
         this.tokenField = new TextFieldWidget(this.textRenderer, this.width / 2 -
                 100, 120, 200, 20,
-                Text.translatable("addServer.enterName"));
+                new TranslatableText("addServer.enterName"));
         this.tokenField.setMaxLength(100);
         this.tokenField.setChangedListener(serverName -> this.updateSaveButton());
         this.addSelectableChild(this.tokenField);
 
-        this.saveButton = this.addDrawableChild(ButtonWidget.builder(
-                Text.of("Save"), button -> this.save()).dimensions(this.width / 2 - 110,
-                        this.height - 55,
-                        100, 20)
-                .build());
+        this.saveButton = this.addDrawableChild(new ButtonWidget(this.width / 2 - 110,
+                this.height - 55,
+                100, 20,
+                Text.of("Save"), button -> this.save()));
 
-        this.addDrawableChild(ButtonWidget.builder(
-                ScreenTexts.CANCEL, button -> this.close())
-                .dimensions(this.width / 2 + 10, this.height - 55,
-                        100, 20)
-                .build());
+        this.addDrawableChild(new ButtonWidget(
+                this.width / 2 + 10, this.height - 55,
+                100, 20, ScreenTexts.CANCEL, button -> this.close()));
 
         this.updateSaveButton();
     }
@@ -86,7 +84,8 @@ public class AddNgrokTokenScreen extends Screen {
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
-        NgrokApiScreen.drawCenteredTextWithShadow(matrices, this.textRenderer, this.title, this.width / 2, 17,
+        NgrokApiScreen.drawCenteredTextWithShadow(matrices, this.textRenderer, this.title.asOrderedText(),
+                this.width / 2, 17,
                 0xFFFFFF);
 
         NgrokApiScreen.drawTextWithShadow(matrices, this.textRenderer, Text.of("Name"), this.width / 2 - 100,

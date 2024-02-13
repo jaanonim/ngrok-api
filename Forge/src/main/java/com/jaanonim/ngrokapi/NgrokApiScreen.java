@@ -8,8 +8,8 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -23,7 +23,7 @@ public class NgrokApiScreen extends Screen {
     private NgrokTokenEntry selectedEntry = null;
 
     public NgrokApiScreen(Screen lastScreen) {
-        super(Component.nullToEmpty("Ngrok Api"));
+        super(new TextComponent("Ngrok Api"));
         this.lastScreen = lastScreen;
     }
 
@@ -31,36 +31,27 @@ public class NgrokApiScreen extends Screen {
     protected void init() {
         this.list = new NgrokTokenList();
 
-        this.joinButton = this.addRenderableWidget(Button.builder(
-                Component.nullToEmpty("Join"), button -> this.join()).bounds(this.width / 2 - 110,
-                        this.height - 55,
-                        100, 20)
-                .build());
+        this.joinButton = this.addRenderableWidget(new Button(this.width / 2 - 110,
+                this.height - 55,
+                100, 20,
+                new TextComponent("Join"), button -> this.join()));
 
-        this.delButton = this.addRenderableWidget(Button.builder(
-                Component.nullToEmpty("Delete"), button -> this.delete())
-                .bounds(this.width / 2 + 10, this.height - 55,
-                        100, 20)
-                .build());
+        this.delButton = this.addRenderableWidget(new Button(this.width / 2 + 10, this.height - 55,
+                100, 20,
+                new TextComponent("Delete"), button -> this.delete()));
 
-        this.addRenderableWidget(Button.builder(
-                Component.nullToEmpty("Add"), button -> this.add())
-                .bounds(this.width / 2 - 140, this.height - 30,
-                        80, 20)
-                .build());
+        this.addRenderableWidget(new Button(this.width / 2 - 140, this.height - 30,
+                80, 20,
+                new TextComponent("Add"), button -> this.add()));
 
-        this.addRenderableWidget(Button.builder(
-                Component.nullToEmpty("Refresh"), button -> this.refresh())
-                .bounds(this.width / 2 - 40, this.height - 30,
-                        80, 20)
-                .build());
+        this.addRenderableWidget(new Button(this.width / 2 - 40, this.height - 30,
+                80, 20,
+                new TextComponent("Refresh"), button -> this.refresh()));
 
-        this.addRenderableWidget(Button.builder(
-                CommonComponents.GUI_CANCEL, button -> this.onClose())
-                .bounds(this.width / 2 + 60,
-                        this.height - 30,
-                        80, 20)
-                .build());
+        this.addRenderableWidget(new Button(this.width / 2 + 60,
+                this.height - 30,
+                80, 20,
+                new TextComponent("Cancel"), button -> this.onClose()));
 
         this.listWidget = new NgrokTokenListWidget(minecraft, width, height - 120, 40, height
                 - 60, 30);
@@ -112,6 +103,7 @@ public class NgrokApiScreen extends Screen {
 
     public void selected(NgrokTokenListWidget.NgrokTokenEntry entry) {
         this.selectedEntry = entry;
+        this.listWidget.setSelected(entry);
         updateButtons();
     }
 
