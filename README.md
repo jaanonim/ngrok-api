@@ -30,4 +30,5 @@ For diffrent minecraft versions use the following branches:
 
 -   [1.20.1](https://github.com/jaanonim/ngrok-api/tree/main)
 -   [1.19.4](https://github.com/jaanonim/ngrok-api/tree/1.19.4)
+-   [1.19.2](https://github.com/jaanonim/ngrok-api/tree/1.19.2)
 -   [1.18.2](https://github.com/jaanonim/ngrok-api/tree/1.18.2)
