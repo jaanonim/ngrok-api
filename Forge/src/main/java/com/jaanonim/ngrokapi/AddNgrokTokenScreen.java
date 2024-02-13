@@ -9,8 +9,6 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -22,7 +20,7 @@ public class AddNgrokTokenScreen extends Screen {
     private final Screen lastScreen;
 
     public AddNgrokTokenScreen(Screen lastScreen) {
-        super(new TextComponent("Add Ngrok Api Token"));
+        super(Component.nullToEmpty("Add Ngrok Api Token"));
         this.lastScreen = lastScreen;
     }
 
@@ -37,14 +35,14 @@ public class AddNgrokTokenScreen extends Screen {
 
         this.nameField = new EditBox(this.font, this.width / 2 -
                 100, 70, 200, 20,
-                new TranslatableComponent("addServer.enterName"));
+                Component.translatable("addServer.enterName"));
         this.nameField.setMaxLength(100);
         this.nameField.setResponder(serverName -> this.updateSaveButton());
         this.addWidget(this.nameField);
 
         this.tokenField = new EditBox(this.font, this.width / 2 -
                 100, 120, 200, 20,
-                new TranslatableComponent("addServer.enterName"));
+                Component.translatable("addServer.enterName"));
         this.tokenField.setMaxLength(100);
         this.tokenField.setResponder(serverName -> this.updateSaveButton());
         this.addWidget(this.tokenField);
